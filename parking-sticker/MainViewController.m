@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "NSString+Emojize.h"
 
 @interface MainViewController ()
 
@@ -53,7 +54,7 @@
     // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-    marker.title = @"Your Car :)";
+    marker.title = [@"Your Car :blue_car:" emojizedString];
     marker.icon = nil; // to do - cool icon
     marker.map = self.mapView;
 }
