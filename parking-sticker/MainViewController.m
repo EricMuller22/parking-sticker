@@ -24,18 +24,16 @@
 
 - (void)loadMapView
 {
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:12];
+    // to do - core location to position camera
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:37.805766
+                                                            longitude:-122.450793
+                                                                 zoom:16];
     self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     self.mapView.myLocationEnabled = YES;
+    self.mapView.settings.myLocationButton = YES;
+    self.mapView.settings.tiltGestures = NO;
+    self.mapView.settings.rotateGestures = NO;
     self.view = self.mapView;
-    
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = self.mapView;
     
     self.mapView.delegate = self;
 }
@@ -45,6 +43,19 @@
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSLog(@"You tapped at %f,%f", coordinate.latitude, coordinate.longitude);
+}
+
+- (void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    // removes any other overlays that were added
+    [self.mapView clear];
+    
+    // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+    marker.title = @"Your Car :)";
+    marker.icon = nil; // to do - cool icon
+    marker.map = self.mapView;
 }
 
 @end
