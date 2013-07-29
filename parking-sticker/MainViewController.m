@@ -25,10 +25,22 @@
 
 - (void)loadMapView
 {
-    // to do - core location to position camera
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:37.805766
-                                                            longitude:-122.450793
-                                                                 zoom:16];
+    CLLocationManager *locationTracker = [[CLLocationManager alloc] init];
+    locationTracker.delegate = self;
+    GMSCameraPosition *camera;
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized && [CLLocationManager locationServicesEnabled] == YES)
+    {
+        camera = [GMSCameraPosition cameraWithLatitude:locationTracker.location.coordinate.latitude
+                                             longitude:locationTracker.location.coordinate.longitude
+                                                  zoom:16];
+    }
+    else
+    {
+        // to do - better communicate why location services should be enabled
+        camera = [GMSCameraPosition cameraWithLatitude:37.805766
+                                             longitude:-122.450793
+                                                  zoom:16];
+    }
     self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
