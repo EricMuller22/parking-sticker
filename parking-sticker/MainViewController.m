@@ -53,7 +53,9 @@
                                              longitude:-122.450793
                                                   zoom:16];
     }
-    self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
+    CGRect mapViewFrame = self.view.frame;
+    mapViewFrame.size.height -= 44; // adjust for tab bar
+    self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.tiltGestures = NO;
