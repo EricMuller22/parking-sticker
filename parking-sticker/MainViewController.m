@@ -54,7 +54,7 @@
                                                   zoom:16];
     }
     CGRect mapViewFrame = self.view.frame;
-    mapViewFrame.size.height -= 44; // adjust for tab bar
+    mapViewFrame.size.height -= 49; // adjust for tab bar
     self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
