@@ -8,13 +8,14 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "TimingViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 #define kGMSKey @"your-google-maps-api-key-here"
 
 @interface AppDelegate ()
 
-@property (nonatomic) MainViewController *mainVC;
+@property (nonatomic) UITabBarController *tabBarController;
 
 @end
 
@@ -28,9 +29,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    self.mainVC = [[MainViewController alloc] init];
-    [self.window setRootViewController:self.mainVC];
-    [self.window addSubview:self.mainVC.view];
+    MainViewController *mainVC = [[MainViewController alloc] init];
+    TimingViewController *timingVC = [[TimingViewController alloc] init];
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = @[mainVC, timingVC];
+    [self.window setRootViewController:self.tabBarController];
     
     [self.window makeKeyAndVisible];
     return YES;
