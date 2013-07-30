@@ -17,6 +17,18 @@
 
 @implementation MainViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map"
+                                                        image:[UIImage imageNamed:@"Map"]
+                                                          tag:0];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

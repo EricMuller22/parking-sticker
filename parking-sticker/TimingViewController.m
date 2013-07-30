@@ -14,10 +14,21 @@
 
 @implementation TimingViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Timing"
+                                                        image:[UIImage imageNamed:@"Timing"]
+                                                          tag:1];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"TIMING VIEW");
 }
 
 @end
