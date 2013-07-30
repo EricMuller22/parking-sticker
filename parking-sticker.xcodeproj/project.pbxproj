@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23A555B6FF1046F3822C01CA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6E8545FC8640B5A1B854C0 /* libPods.a */; };
 		9B90893617A7789800BC2724 /* TimingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B90893517A777D200BC2724 /* TimingViewController.m */; };
+		9B90893C17A792FA00BC2724 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B90893B17A7918300BC2724 /* UIColor+Hex.m */; };
 		AC1B17BE17A3467D003E8A3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17BD17A3467D003E8A3F /* Foundation.framework */; };
 		AC1B17C017A3467D003E8A3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17BF17A3467D003E8A3F /* CoreGraphics.framework */; };
 		AC1B17C217A3467D003E8A3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17C117A3467D003E8A3F /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* Begin PBXFileReference section */
 		9B90893417A777D200BC2724 /* TimingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimingViewController.h; sourceTree = "<group>"; };
 		9B90893517A777D200BC2724 /* TimingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimingViewController.m; sourceTree = "<group>"; };
+		9B90893A17A7918300BC2724 /* UIColor+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		9B90893B17A7918300BC2724 /* UIColor+Hex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		AC1B17BA17A3467D003E8A3F /* parking-sticker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "parking-sticker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1B17BD17A3467D003E8A3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AC1B17BF17A3467D003E8A3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B90893917A7916C00BC2724 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9B90893A17A7918300BC2724 /* UIColor+Hex.h */,
+				9B90893B17A7918300BC2724 /* UIColor+Hex.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		AC1B17B117A3467D003E8A3F = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +125,7 @@
 		AC1B17C317A3467D003E8A3F /* parking-sticker */ = {
 			isa = PBXGroup;
 			children = (
+				9B90893917A7916C00BC2724 /* Categories */,
 				AC1B17CC17A3467D003E8A3F /* AppDelegate.h */,
 				AC1B17CD17A3467D003E8A3F /* AppDelegate.m */,
 				AC1B17CF17A3467D003E8A3F /* Images.xcassets */,
@@ -265,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B90893C17A792FA00BC2724 /* UIColor+Hex.m in Sources */,
 				9B90893617A7789800BC2724 /* TimingViewController.m in Sources */,
 				ACFA02AE17A4618E0003E5FE /* MainViewController.m in Sources */,
 				AC1B17CE17A3467D003E8A3F /* AppDelegate.m in Sources */,
