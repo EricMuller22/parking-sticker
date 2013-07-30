@@ -54,9 +54,9 @@
                                                   zoom:16];
     }
     CGRect mapViewFrame = self.view.frame;
-    mapViewFrame.size.height -= 49; // adjust for tab bar
+    mapViewFrame.size.height -= 49; // adjust for tab bar - to do - handle this with auto-layout
     self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
-    self.mapView.myLocationEnabled = YES;
+    self.mapView.myLocationEnabled = YES; // to do - figure out why "my location" image transparency is broken
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.rotateGestures = NO;
@@ -82,7 +82,7 @@
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
     marker.title = [@"Your Car :blue_car:" emojizedString];
-    marker.icon = nil; // to do - cool icon
+    marker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
     marker.map = self.mapView;
 }
 
