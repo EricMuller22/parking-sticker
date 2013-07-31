@@ -70,11 +70,6 @@
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    NSLog(@"You tapped at %f,%f", coordinate.latitude, coordinate.longitude);
-}
-
-- (void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
-{
     // removes any other overlays that were added
     [self.mapView clear];
     
