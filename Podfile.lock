@@ -1,13 +1,10 @@
 PODS:
   - Google-Maps-iOS-SDK (1.4.0)
-  - NSStringEmojize (0.2.0)
 
 DEPENDENCIES:
   - Google-Maps-iOS-SDK (~> 1.4.0)
-  - NSStringEmojize (~> 0.2.0)
 
 SPEC CHECKSUMS:
   Google-Maps-iOS-SDK: 684be0a52331711e69dd2791ffec4d3db2d34924
-  NSStringEmojize: ea303101d9174142813454c4f3616a1a569c1052
 
 COCOAPODS: 0.22.3

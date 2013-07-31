@@ -7,11 +7,13 @@
 //
 
 #import "MainViewController.h"
-#import "NSString+Emojize.h"
 
 @interface MainViewController ()
 
 @property (nonatomic) GMSMapView *mapView;
+@property (nonatomic) CLLocationManager *locationTracker;
+@property (nonatomic) GMSMarker *locationMarker;
+@property (nonatomic) GMSMarker *carMarker;
 
 @end
 
@@ -37,25 +39,19 @@
 
 - (void)loadMapView
 {
-    CLLocationManager *locationTracker = [[CLLocationManager alloc] init];
-    locationTracker.delegate = self;
-    GMSCameraPosition *camera;
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized && [CLLocationManager locationServicesEnabled] == YES)
-    {
-        camera = [GMSCameraPosition cameraWithLatitude:locationTracker.location.coordinate.latitude
-                                             longitude:locationTracker.location.coordinate.longitude
-                                                  zoom:16];
-    }
-    else
-    {
-        // to do - better communicate why location services should be enabled
-        camera = [GMSCameraPosition cameraWithLatitude:37.805766
-                                             longitude:-122.450793
-                                                  zoom:16];
-    }
+    self.locationTracker = [[CLLocationManager alloc] init]; // to do - ask for permission instead of letting Google do it
+    self.locationTracker.delegate = self;
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:37.805766
+                                                            longitude:-122.450793
+                                                                 zoom:16];
     CGRect mapViewFrame = self.view.frame;
-    mapViewFrame.size.height -= 49; // adjust for tab bar - to do - handle this with auto-layout
+    if (self.tabBarController)
+    {
+        mapViewFrame.size.height -= self.tabBarController.tabBar.frame.size.height; // adjust for tab bar - to do - handle this with auto-layout
+    }
     self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
+
     self.mapView.myLocationEnabled = YES; // to do - figure out why "my location" image transparency is broken
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.tiltGestures = NO;
@@ -66,19 +62,39 @@
     self.mapView.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+        && [CLLocationManager locationServicesEnabled] == YES
+        && self.locationTracker.location)
+    {
+        [self.mapView animateToLocation:self.locationTracker.location.coordinate];
+        
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.position = CLLocationCoordinate2DMake(self.locationTracker.location.coordinate.latitude,
+                                                     self.locationTracker.location.coordinate.longitude);
+        marker.title = @"Your Location";
+        marker.icon = [GMSMarker markerImageWithColor:self.view.tintColor]; // to do - proper coloring
+        marker.map = self.mapView;
+    }
+}
+
 #pragma mark - GMSMapViewDelegate
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     // removes any other overlays that were added
-    [self.mapView clear];
+    if (!self.carMarker)
+    {
+        // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
+        self.carMarker = [[GMSMarker alloc] init];
+        self.carMarker.title = @"Your Car";
+        self.carMarker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
+        self.carMarker.map = self.mapView;
+    }
     
-    // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-    marker.title = [@"Your Car :blue_car:" emojizedString];
-    marker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
-    marker.map = self.mapView;
+    self.carMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
 }
 
 @end
