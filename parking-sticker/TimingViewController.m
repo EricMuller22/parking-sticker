@@ -12,6 +12,9 @@
 #define kCleaningWeeks @[@"1st and 3rd", @"2nd and 4th"]
 #define kCleaningDays @[@"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", @"Sunday"]
 
+#define kCleaningWeeksKey @"street-cleaning-weeks"
+#define kCleaningDaysKey @"street-cleaning-days"
+
 @interface TimingViewController ()
 
 @property (nonatomic) UIPickerView *picker;
@@ -44,6 +47,14 @@
     [self.view addSubview:self.picker];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSInteger weeks = [[NSUserDefaults standardUserDefaults] integerForKey:kCleaningWeeksKey];
+    NSInteger days = [[NSUserDefaults standardUserDefaults] integerForKey:kCleaningDaysKey];
+    [self.picker selectRow:weeks inComponent:0 animated:NO];
+    [self.picker selectRow:days inComponent:0 animated:NO];
+}
+
 # pragma mark - UIPickerViewDataSource
 
 - (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -61,6 +72,11 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return (component == 0) ? kCleaningWeeks[row] : kCleaningDays[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:row forKey: (component == 0) ? kCleaningWeeksKey : kCleaningDaysKey];
 }
 
 @end
