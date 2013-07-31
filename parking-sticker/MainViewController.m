@@ -58,8 +58,8 @@
     }
     self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
 
-    self.mapView.myLocationEnabled = YES; // to do - figure out why "my location" image transparency is broken
-    self.mapView.settings.myLocationButton = YES;
+    // self.mapView.myLocationEnabled = YES; // to do - figure out why "my location" image transparency is broken
+    // self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.rotateGestures = NO;
     
@@ -96,9 +96,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-        && [CLLocationManager locationServicesEnabled] == YES
-        && self.locationTracker.location)
+    
+    if ([CLLocationManager locationServicesEnabled] == YES)
+    {
+        [self.locationTracker startUpdatingLocation];
+    }
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized && self.locationTracker.location)
     {
         [self.mapView animateToLocation:self.locationTracker.location.coordinate];
         
@@ -113,13 +117,38 @@
     }
 }
 
-#pragma mark - GMSMapViewDelegate
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if ([CLLocationManager locationServicesEnabled] == YES)
+    {
+        [self.locationTracker stopUpdatingLocation];
+    }
+}
+
+# pragma mark - GMSMapViewDelegate
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     [[NSUserDefaults standardUserDefaults] setDouble:coordinate.latitude forKey:kCarLatitude];
     [[NSUserDefaults standardUserDefaults] setDouble:coordinate.longitude forKey:kCarLongitude];
     self.carMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+}
+
+# pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (status == kCLAuthorizationStatusAuthorized && manager.location)
+    {
+        [self.mapView animateToLocation:manager.location.coordinate];
+        
+        self.locationMarker.position = manager.location.coordinate;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.locationMarker.position = ((CLLocation *)[locations lastObject]).coordinate;
 }
 
 @end
