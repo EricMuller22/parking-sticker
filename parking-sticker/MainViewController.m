@@ -8,6 +8,9 @@
 
 #import "MainViewController.h"
 
+#define kCarLatitude @"car-latitude"
+#define kCarLongitude @"car-longitude"
+
 @interface MainViewController ()
 
 @property (nonatomic) GMSMapView *mapView;
@@ -62,6 +65,19 @@
     self.mapView.delegate = self;
 }
 
+- (GMSMarker *)carMarker
+{
+    if (!_carMarker)
+    {
+        // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
+        _carMarker = [[GMSMarker alloc] init];
+        _carMarker.title = @"Your Car";
+        _carMarker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
+        _carMarker.map = self.mapView;
+    }
+    return _carMarker;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -78,22 +94,21 @@
         marker.icon = [GMSMarker markerImageWithColor:self.view.tintColor]; // to do - proper coloring
         marker.map = self.mapView;
     }
+    
+    double latitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLatitude];
+    double longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLongitude];
+    if (latitude && longitude) // (0, 0) will not play nice here, to do - fix tint color (same as above)
+    {
+        self.carMarker.position = CLLocationCoordinate2DMake(latitude, longitude);
+    }
 }
 
 #pragma mark - GMSMapViewDelegate
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    // removes any other overlays that were added
-    if (!self.carMarker)
-    {
-        // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
-        self.carMarker = [[GMSMarker alloc] init];
-        self.carMarker.title = @"Your Car";
-        self.carMarker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
-        self.carMarker.map = self.mapView;
-    }
-    
+    [[NSUserDefaults standardUserDefaults] setDouble:coordinate.latitude forKey:kCarLatitude];
+    [[NSUserDefaults standardUserDefaults] setDouble:coordinate.longitude forKey:kCarLongitude];
     self.carMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
 }
 
