@@ -7,9 +7,12 @@
 //
 
 #import "MainViewController.h"
+#import "UIColor+Hex.h"
 
 #define kCarLatitude @"car-latitude"
 #define kCarLongitude @"car-longitude"
+#define kCarTint @"D35400"
+#define kLocationTint @"#2980B9"
 
 @interface MainViewController ()
 
@@ -72,7 +75,7 @@
         // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
         _carMarker = [[GMSMarker alloc] init];
         _carMarker.title = @"Your Car";
-        _carMarker.icon = [GMSMarker markerImageWithColor:self.view.tintColor];
+        _carMarker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kCarTint]];
         _carMarker.map = self.mapView;
     }
     return _carMarker;
@@ -91,13 +94,13 @@
         marker.position = CLLocationCoordinate2DMake(self.locationTracker.location.coordinate.latitude,
                                                      self.locationTracker.location.coordinate.longitude);
         marker.title = @"Your Location";
-        marker.icon = [GMSMarker markerImageWithColor:self.view.tintColor]; // to do - proper coloring
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kLocationTint]];
         marker.map = self.mapView;
     }
     
     double latitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLatitude];
     double longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLongitude];
-    if (latitude && longitude) // (0, 0) will not play nice here, to do - fix tint color (same as above)
+    if (latitude && longitude) // (0, 0) will not play nice here, luckily that's in the Gulf of Guinea
     {
         self.carMarker.position = CLLocationCoordinate2DMake(latitude, longitude);
     }
