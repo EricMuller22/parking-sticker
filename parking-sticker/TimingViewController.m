@@ -52,7 +52,7 @@
     NSInteger weeks = [[NSUserDefaults standardUserDefaults] integerForKey:kCleaningWeeksKey];
     NSInteger days = [[NSUserDefaults standardUserDefaults] integerForKey:kCleaningDaysKey];
     [self.picker selectRow:weeks inComponent:0 animated:NO];
-    [self.picker selectRow:days inComponent:0 animated:NO];
+    [self.picker selectRow:days inComponent:1 animated:NO];
 }
 
 # pragma mark - UIPickerViewDataSource
