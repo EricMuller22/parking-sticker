@@ -75,7 +75,7 @@
         // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
         _carMarker = [[GMSMarker alloc] init];
         _carMarker.title = @"Your Car";
-        _carMarker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kCarTint]];
+        _carMarker.icon = [UIImage imageNamed:@"Car"];
         _carMarker.map = self.mapView;
     }
     return _carMarker;
@@ -87,7 +87,7 @@
     {
         _locationMarker = [[GMSMarker alloc] init];
         _locationMarker.title = @"Your Location";
-        _locationMarker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kLocationTint]];
+        _locationMarker.icon = [UIImage imageNamed:@"Location"];
         _locationMarker.map = self.mapView;
     }
     return _locationMarker;
