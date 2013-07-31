@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TimingViewController : UIViewController
+@interface TimingViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
