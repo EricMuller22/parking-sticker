@@ -81,6 +81,18 @@
     return _carMarker;
 }
 
+- (GMSMarker *)locationMarker
+{
+    if (!_locationMarker)
+    {
+        _locationMarker = [[GMSMarker alloc] init];
+        _locationMarker.title = @"Your Location";
+        _locationMarker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kLocationTint]];
+        _locationMarker.map = self.mapView;
+    }
+    return _locationMarker;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -90,12 +102,7 @@
     {
         [self.mapView animateToLocation:self.locationTracker.location.coordinate];
         
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.position = CLLocationCoordinate2DMake(self.locationTracker.location.coordinate.latitude,
-                                                     self.locationTracker.location.coordinate.longitude);
-        marker.title = @"Your Location";
-        marker.icon = [GMSMarker markerImageWithColor:[UIColor colorFromHexString:kLocationTint]];
-        marker.map = self.mapView;
+        self.locationMarker.position = self.locationTracker.location.coordinate;
     }
     
     double latitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLatitude];
