@@ -41,4 +41,10 @@
     return YES;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    self.tabBarController.selectedIndex = 0;
+    [[self.tabBarController selectedViewController] viewWillAppear:NO];
+}
+
 @end
