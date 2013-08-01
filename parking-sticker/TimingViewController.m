@@ -98,12 +98,18 @@
 {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     if (target == self.activator && target.on) {
-        UILocalNotification *streetCleaningNotification = [[UILocalNotification alloc] init];
-        streetCleaningNotification.alertBody = @"You might want to move your car soon (Street Cleaning)";
-        streetCleaningNotification.timeZone = [NSTimeZone localTimeZone];
-        streetCleaningNotification.fireDate = [NSDate dateWithMinutesFromNow:1]; // for testing
-        [[UIApplication sharedApplication] scheduleLocalNotification:streetCleaningNotification];
+        [self scheduleNotificationForDate:[NSDate dateWithMinutesFromNow:1] reason:@"Street Cleaning"];
     }
+}
+
+- (void)scheduleNotificationForDate:(NSDate *)date reason:(NSString *)reason
+{
+    UILocalNotification *streetCleaningNotification = [[UILocalNotification alloc] init];
+    streetCleaningNotification.alertBody = [NSString stringWithFormat:@"You might want to move your car soon (%@)", reason];
+    streetCleaningNotification.soundName = UILocalNotificationDefaultSoundName;
+    streetCleaningNotification.timeZone = [NSTimeZone localTimeZone];
+    streetCleaningNotification.fireDate = date;
+    [[UIApplication sharedApplication] scheduleLocalNotification:streetCleaningNotification];
 }
 
 @end
