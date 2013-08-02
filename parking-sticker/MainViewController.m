@@ -114,15 +114,14 @@
 
 - (void)loadButtons
 {
-<<<<<<< Updated upstream
-    CGRect buttonFrame = self.view.frame;
-=======
     UIView *buttonContainer = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - mapButtonSize * 3 - 40,
                                                                        self.view.frame.size.height - mapButtonSize - 20,
                                                                        mapButtonSize * 3 + 40,
                                                                        mapButtonSize + 20)];
     buttonContainer.backgroundColor = [UIColor colorFromHexString:@"#404040" alpha:0.8];
->>>>>>> Stashed changes
+
+    [self.view addSubview:buttonContainer];
+    CGRect buttonFrame = buttonContainer.frame;
     
     carButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
                                   position:CGPointMake(buttonFrame.size.width - mapButtonSize - 10,
@@ -144,8 +143,6 @@
     [timingButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [timingButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [buttonContainer addSubview:timingButton];
-    
-    [self.view addSubview:buttonContainer];
 }
 
 - (void)buttonPress:(MapButton *)button
