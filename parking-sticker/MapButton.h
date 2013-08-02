@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define mapButtonSize 60
+#define mapButtonSize 52
 
 @interface MapButton : UIButton
 
