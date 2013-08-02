@@ -45,9 +45,43 @@
     [self loadButtons];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([CLLocationManager locationServicesEnabled] == YES)
+    {
+        [self.locationTracker startUpdatingLocation];
+    }
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized && self.locationTracker.location)
+    {
+        [self.mapView animateToLocation:self.locationTracker.location.coordinate];
+        
+        self.locationMarker.position = self.locationTracker.location.coordinate;
+    }
+    
+    double latitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLatitude];
+    double longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLongitude];
+    if (latitude && longitude) // (0, 0) will not play nice here, luckily that's in the Gulf of Guinea
+    {
+        [self placeCarMarker:CLLocationCoordinate2DMake(latitude, longitude)];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if ([CLLocationManager locationServicesEnabled] == YES)
+    {
+        [self.locationTracker stopUpdatingLocation];
+    }
+}
+
+# pragma mark - Map
+
 - (void)loadMapView
 {
-    self.locationTracker = [[CLLocationManager alloc] init]; // to do - ask for permission instead of letting Google do it
+    self.locationTracker = [[CLLocationManager alloc] init];
     self.locationTracker.delegate = self;
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:37.805766
@@ -70,6 +104,8 @@
     self.mapView.delegate = self;
 }
 
+# pragma mark - Buttons
+
 - (void)loadButtons
 {
     MapButton *car = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
@@ -82,7 +118,6 @@
 
 - (void)carButtonPress:(MapButton *)button
 {
-    // to do - display hint text
     [(MapButton *)button shrink];
 }
 
@@ -102,6 +137,8 @@
         NSLog(@"Display hint text");
     }
 }
+
+# pragma mark - Map Markers
 
 - (GMSMarker *)carMarker
 {
@@ -134,38 +171,6 @@
     self.carMarker.map = nil;
     self.carMarker.position = location;
     self.carMarker.map = self.mapView; // encourage the animation
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if ([CLLocationManager locationServicesEnabled] == YES)
-    {
-        [self.locationTracker startUpdatingLocation];
-    }
-    
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized && self.locationTracker.location)
-    {
-        [self.mapView animateToLocation:self.locationTracker.location.coordinate];
-        
-        self.locationMarker.position = self.locationTracker.location.coordinate;
-    }
-    
-    double latitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLatitude];
-    double longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLongitude];
-    if (latitude && longitude) // (0, 0) will not play nice here, luckily that's in the Gulf of Guinea
-    {
-        [self placeCarMarker:CLLocationCoordinate2DMake(latitude, longitude)];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if ([CLLocationManager locationServicesEnabled] == YES)
-    {
-        [self.locationTracker stopUpdatingLocation];
-    }
 }
 
 # pragma mark - GMSMapViewDelegate
