@@ -25,6 +25,10 @@
 @end
 
 @implementation MainViewController
+{
+    MapButton *carButton;
+    MapButton *locationButton;
+}
 
 - (id)init
 {
@@ -108,33 +112,39 @@
 
 - (void)loadButtons
 {
-    MapButton *car = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
-                                       position:CGPointMake(self.view.frame.size.width - mapButtonSize - 10,
+    carButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
+                                  position:CGPointMake(self.view.frame.size.width - mapButtonSize - 10,
+                                                       self.view.frame.size.height - mapButtonSize - 10)];
+    [carButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
+    [carButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:carButton];
+    
+    locationButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Location"]
+                                       position:CGPointMake(self.view.frame.size.width - mapButtonSize * 2 - 20,
                                                             self.view.frame.size.height - mapButtonSize - 10)];
-    [car addTarget:self action:@selector(carButtonPress:) forControlEvents:UIControlEventTouchDown];
-    [car addTarget:self action:@selector(carButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:car];
+    [locationButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
+    [locationButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:locationButton];
 }
 
-- (void)carButtonPress:(MapButton *)button
+- (void)buttonPress:(MapButton *)button
 {
     [(MapButton *)button shrink];
 }
 
-- (void)carButtonTap:(MapButton *)button
+- (void)buttonTap:(MapButton *)button
 {
     [(MapButton *)button expand];
     // [(MapButton *)button highlight:self.view.tintColor];
     
-    double latitude = self.carMarker.position.latitude || 0;
-    double longitude = self.carMarker.position.longitude || 0;
-    if (latitude || longitude)
+    if (button == locationButton)
     {
-        [self.mapView animateToLocation:self.carMarker.position];
+        [self.mapView animateToLocation:self.locationMarker.position];
     }
-    else
+    else if (button == carButton)
     {
-        NSLog(@"Display hint text");
+        // this will log an error if carMarker hasn't received a position
+        [self.mapView animateToLocation:self.carMarker.position];
     }
 }
 
