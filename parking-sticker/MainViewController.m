@@ -89,6 +89,18 @@
 - (void)carButtonTap:(MapButton *)button
 {
     [(MapButton *)button expand];
+    // [(MapButton *)button highlight:self.view.tintColor];
+    
+    double latitude = self.carMarker.position.latitude || 0;
+    double longitude = self.carMarker.position.longitude || 0;
+    if (latitude || longitude)
+    {
+        [self.mapView animateToLocation:self.carMarker.position];
+    }
+    else
+    {
+        NSLog(@"Display hint text");
+    }
 }
 
 - (GMSMarker *)carMarker
@@ -100,6 +112,7 @@
         _carMarker.title = @"Your Car";
         _carMarker.icon = [UIImage imageNamed:@"Car"];
         _carMarker.map = self.mapView;
+        _carMarker.animated = YES;
     }
     return _carMarker;
 }
@@ -114,6 +127,13 @@
         _locationMarker.map = self.mapView;
     }
     return _locationMarker;
+}
+
+- (void)placeCarMarker:(CLLocationCoordinate2D)location
+{
+    self.carMarker.map = nil;
+    self.carMarker.position = location;
+    self.carMarker.map = self.mapView; // encourage the animation
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -136,7 +156,7 @@
     double longitude = [[NSUserDefaults standardUserDefaults] doubleForKey:kCarLongitude];
     if (latitude && longitude) // (0, 0) will not play nice here, luckily that's in the Gulf of Guinea
     {
-        self.carMarker.position = CLLocationCoordinate2DMake(latitude, longitude);
+        [self placeCarMarker:CLLocationCoordinate2DMake(latitude, longitude)];
     }
 }
 
@@ -154,7 +174,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setDouble:coordinate.latitude forKey:kCarLatitude];
     [[NSUserDefaults standardUserDefaults] setDouble:coordinate.longitude forKey:kCarLongitude];
-    self.carMarker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+    [self placeCarMarker:coordinate];
 }
 
 # pragma mark - CLLocationManagerDelegate
