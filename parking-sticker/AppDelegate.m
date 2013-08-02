@@ -31,11 +31,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     MainViewController *mainVC = [[MainViewController alloc] init];
-    TimingViewController *timingVC = [[TimingViewController alloc] init];
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[mainVC, timingVC];
-    self.window.tintColor = [UIColor colorFromHexString:@"#D35400"];
-    [self.window setRootViewController:self.tabBarController];
+    // TimingViewController *timingVC = [[TimingViewController alloc] init];
+    // self.tabBarController = [[UITabBarController alloc] init];
+    // self.tabBarController.viewControllers = @[mainVC, timingVC];
+    mainVC.view.tintColor = [UIColor colorFromHexString:@"#D35400"];
+    [self.window setRootViewController:mainVC]; // self.tabBarController];
     
     [self.window makeKeyAndVisible];
     return YES;

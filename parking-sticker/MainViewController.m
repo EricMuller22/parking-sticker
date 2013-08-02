@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "MapButton.h"
 #import "UIColor+Hex.h"
 
 #define kCarLatitude @"car-latitude"
@@ -41,6 +42,7 @@
 {
     [super viewDidLoad];
     [self loadMapView];
+    [self loadButtons];
 }
 
 - (void)loadMapView
@@ -66,6 +68,27 @@
     [self.view addSubview:self.mapView];
     
     self.mapView.delegate = self;
+}
+
+- (void)loadButtons
+{
+    MapButton *car = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
+                                       position:CGPointMake(self.view.frame.size.width - mapButtonSize - 10,
+                                                            self.view.frame.size.height - mapButtonSize - 10)];
+    [car addTarget:self action:@selector(carButtonPress:) forControlEvents:UIControlEventTouchDown];
+    [car addTarget:self action:@selector(carButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:car];
+}
+
+- (void)carButtonPress:(MapButton *)button
+{
+    // to do - display hint text
+    [(MapButton *)button shrink];
+}
+
+- (void)carButtonTap:(MapButton *)button
+{
+    [(MapButton *)button expand];
 }
 
 - (GMSMarker *)carMarker

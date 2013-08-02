@@ -20,6 +20,7 @@
 		AC1B17D717A3467D003E8A3F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17D617A3467D003E8A3F /* XCTest.framework */; };
 		AC1B17D817A3467D003E8A3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17BD17A3467D003E8A3F /* Foundation.framework */; };
 		AC1B17D917A3467D003E8A3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17C117A3467D003E8A3F /* UIKit.framework */; };
+		ACAFECA117AB58C500266452 /* MapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAFECA017AB58C500266452 /* MapButton.m */; };
 		ACFA02AE17A4618E0003E5FE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFA02AD17A4611F0003E5FE /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,8 @@
 		AC1B17CF17A3467D003E8A3F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AC1B17D517A3467D003E8A3F /* parking-stickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "parking-stickerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1B17D617A3467D003E8A3F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		ACAFEC9F17AB58C500266452 /* MapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapButton.h; sourceTree = "<group>"; };
+		ACAFECA017AB58C500266452 /* MapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapButton.m; sourceTree = "<group>"; };
 		ACFA02AC17A4611F0003E5FE /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		ACFA02AD17A4611F0003E5FE /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BD6E8545FC8640B5A1B854C0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +137,8 @@
 				ACFA02AD17A4611F0003E5FE /* MainViewController.m */,
 				9B90893417A777D200BC2724 /* TimingViewController.h */,
 				9B90893517A777D200BC2724 /* TimingViewController.m */,
+				ACAFEC9F17AB58C500266452 /* MapButton.h */,
+				ACAFECA017AB58C500266452 /* MapButton.m */,
 			);
 			path = "parking-sticker";
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 			files = (
 				9B90893C17A792FA00BC2724 /* UIColor+Hex.m in Sources */,
 				9B90893617A7789800BC2724 /* TimingViewController.m in Sources */,
+				ACAFECA117AB58C500266452 /* MapButton.m in Sources */,
 				ACFA02AE17A4618E0003E5FE /* MainViewController.m in Sources */,
 				AC1B17CE17A3467D003E8A3F /* AppDelegate.m in Sources */,
 				AC1B17CA17A3467D003E8A3F /* main.m in Sources */,
