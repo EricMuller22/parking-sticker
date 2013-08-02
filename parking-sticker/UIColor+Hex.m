@@ -11,7 +11,7 @@
 @implementation UIColor (Hex)
 
 // http://www.imthi.com/blog/programming/iphone-sdk-convert-hex-color-string-to-uicolor.php
-+ (UIColor *)colorFromHexString:(NSString *)hexString
++ (UIColor *)colorFromHexString:(NSString *)hexString alpha:(float)alpha
 {
     NSString *colorString = [[hexString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
@@ -50,7 +50,12 @@
     return [UIColor colorWithRed:((float) r / 255.0f)
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
-                           alpha:1.0f];
+                           alpha:alpha];
+}
+
++ colorFromHexString:(NSString *)hexString
+{
+    return [UIColor colorFromHexString:hexString alpha:1.0f];
 }
 
 @end
