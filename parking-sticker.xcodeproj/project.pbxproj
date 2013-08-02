@@ -21,6 +21,7 @@
 		AC1B17D817A3467D003E8A3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17BD17A3467D003E8A3F /* Foundation.framework */; };
 		AC1B17D917A3467D003E8A3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1B17C117A3467D003E8A3F /* UIKit.framework */; };
 		ACAFECA117AB58C500266452 /* MapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAFECA017AB58C500266452 /* MapButton.m */; };
+		ACAFECA417AB7D7D00266452 /* MapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAFECA317AB7D7D00266452 /* MapMarker.m */; };
 		ACFA02AE17A4618E0003E5FE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACFA02AD17A4611F0003E5FE /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,8 @@
 		AC1B17D617A3467D003E8A3F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		ACAFEC9F17AB58C500266452 /* MapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapButton.h; sourceTree = "<group>"; };
 		ACAFECA017AB58C500266452 /* MapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapButton.m; sourceTree = "<group>"; };
+		ACAFECA217AB7D7D00266452 /* MapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarker.h; sourceTree = "<group>"; };
+		ACAFECA317AB7D7D00266452 /* MapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarker.m; sourceTree = "<group>"; };
 		ACFA02AC17A4611F0003E5FE /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		ACFA02AD17A4611F0003E5FE /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BD6E8545FC8640B5A1B854C0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +142,8 @@
 				9B90893517A777D200BC2724 /* TimingViewController.m */,
 				ACAFEC9F17AB58C500266452 /* MapButton.h */,
 				ACAFECA017AB58C500266452 /* MapButton.m */,
+				ACAFECA217AB7D7D00266452 /* MapMarker.h */,
+				ACAFECA317AB7D7D00266452 /* MapMarker.m */,
 			);
 			path = "parking-sticker";
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACAFECA417AB7D7D00266452 /* MapMarker.m in Sources */,
 				9B90893C17A792FA00BC2724 /* UIColor+Hex.m in Sources */,
 				9B90893617A7789800BC2724 /* TimingViewController.m in Sources */,
 				ACAFECA117AB58C500266452 /* MapButton.m in Sources */,

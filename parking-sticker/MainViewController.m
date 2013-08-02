@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "MapButton.h"
+#import "MapMarker.h"
 #import "UIColor+Hex.h"
 
 #define kCarLatitude @"car-latitude"
@@ -19,8 +20,8 @@
 
 @property (nonatomic) GMSMapView *mapView;
 @property (nonatomic) CLLocationManager *locationTracker;
-@property (nonatomic) GMSMarker *locationMarker;
-@property (nonatomic) GMSMarker *carMarker;
+@property (nonatomic) MapMarker *locationMarker;
+@property (nonatomic) MapMarker *carMarker;
 
 @end
 
@@ -145,13 +146,12 @@
     [(MapButton *)button expand];
     // [(MapButton *)button highlight:self.view.tintColor];
     
-    if (button == locationButton)
+    if (button == locationButton && [self.locationMarker hasPosition])
     {
         [self.mapView animateToLocation:self.locationMarker.position];
     }
-    else if (button == carButton)
+    else if (button == carButton && [self.carMarker hasPosition])
     {
-        // this will log an error if carMarker hasn't received a position
         [self.mapView animateToLocation:self.carMarker.position];
     }
     else if (button == timingButton)
@@ -167,9 +167,7 @@
     if (!_carMarker)
     {
         // https://developers.google.com/maps/documentation/ios/reference/interface_g_m_s_marker
-        _carMarker = [[GMSMarker alloc] init];
-        _carMarker.title = @"Your Car";
-        _carMarker.icon = [UIImage imageNamed:@"Car"];
+        _carMarker = [MapMarker markerWithImage:[UIImage imageNamed:@"Car"] title:@"Your Car"];
         _carMarker.map = self.mapView;
         _carMarker.animated = YES;
     }
@@ -180,9 +178,7 @@
 {
     if (!_locationMarker)
     {
-        _locationMarker = [[GMSMarker alloc] init];
-        _locationMarker.title = @"Your Location";
-        _locationMarker.icon = [UIImage imageNamed:@"Location"];
+        _locationMarker = [MapMarker markerWithImage:[UIImage imageNamed:@"Location"] title:@"You"];
         _locationMarker.map = self.mapView;
     }
     return _locationMarker;
