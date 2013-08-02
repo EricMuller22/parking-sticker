@@ -114,23 +114,25 @@
 
 - (void)loadButtons
 {
+    CGRect buttonFrame = self.view.frame;
+    
     carButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
-                                  position:CGPointMake(self.view.frame.size.width - mapButtonSize - 10,
-                                                       self.view.frame.size.height - mapButtonSize - 10)];
+                                  position:CGPointMake(buttonFrame.size.width - mapButtonSize - 10,
+                                                       buttonFrame.size.height - mapButtonSize - 10)];
     [carButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [carButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:carButton];
     
     locationButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Location"]
-                                       position:CGPointMake(self.view.frame.size.width - mapButtonSize * 2 - 20,
-                                                            self.view.frame.size.height - mapButtonSize - 10)];
+                                       position:CGPointMake(buttonFrame.size.width - mapButtonSize * 2 - 20,
+                                                            buttonFrame.size.height - mapButtonSize - 10)];
     [locationButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [locationButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:locationButton];
     
     timingButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Timing"]
-                                     position:CGPointMake(self.view.frame.size.width - mapButtonSize * 3 - 30,
-                                                          self.view.frame.size.height - mapButtonSize - 10)];
+                                     position:CGPointMake(buttonFrame.size.width - mapButtonSize * 3 - 30,
+                                                          buttonFrame.size.height - mapButtonSize - 10)];
     [timingButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [timingButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:timingButton];
