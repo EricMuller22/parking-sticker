@@ -28,6 +28,7 @@
 {
     MapButton *carButton;
     MapButton *locationButton;
+    MapButton *timingButton;
 }
 
 - (id)init
@@ -125,6 +126,13 @@
     [locationButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [locationButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:locationButton];
+    
+    timingButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Timing"]
+                                     position:CGPointMake(self.view.frame.size.width - mapButtonSize * 3 - 30,
+                                                          self.view.frame.size.height - mapButtonSize - 10)];
+    [timingButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
+    [timingButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:timingButton];
 }
 
 - (void)buttonPress:(MapButton *)button
@@ -145,6 +153,10 @@
     {
         // this will log an error if carMarker hasn't received a position
         [self.mapView animateToLocation:self.carMarker.position];
+    }
+    else if (button == timingButton)
+    {
+        NSLog(@"Display timing");
     }
 }
 
