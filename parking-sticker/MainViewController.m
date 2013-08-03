@@ -119,35 +119,24 @@
     carButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Car"]
                                   position:CGPointMake(buttonFrame.size.width - mapButtonSize - 10,
                                                        buttonFrame.size.height - mapButtonSize - 10)];
-    [carButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [carButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:carButton];
     
     locationButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Location"]
                                        position:CGPointMake(buttonFrame.size.width - mapButtonSize * 2 - 20,
                                                             buttonFrame.size.height - mapButtonSize - 10)];
-    [locationButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [locationButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:locationButton];
     
     timingButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Timing"]
                                      position:CGPointMake(buttonFrame.size.width - mapButtonSize * 3 - 30,
                                                           buttonFrame.size.height - mapButtonSize - 10)];
-    [timingButton addTarget:self action:@selector(buttonPress:) forControlEvents:UIControlEventTouchDown];
     [timingButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:timingButton];
 }
 
-- (void)buttonPress:(MapButton *)button
-{
-    [(MapButton *)button shrink];
-}
-
 - (void)buttonTap:(MapButton *)button
 {
-    [(MapButton *)button expand];
-    // [(MapButton *)button highlight:self.view.tintColor];
-    
     if (button == locationButton && [self.locationMarker hasPosition])
     {
         [self.mapView animateToLocation:self.locationMarker.position];

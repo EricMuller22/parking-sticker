@@ -14,7 +14,4 @@
 
 + (MapButton *)buttonWithImage:(UIImage *)image position:(CGPoint)position;
 
-- (void)shrink;
-- (void)expand;
-
 @end

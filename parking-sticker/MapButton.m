@@ -9,7 +9,7 @@
 #import "MapButton.h"
 #import "UIColor+Hex.h"
 
-#define mapButtonColor [UIColor colorFromHexString:@"#a0a0a0"]
+#define mapButtonShadowColor [UIColor colorFromHexString:@"#a0a0a0"]
 #define shrinkSize 2
 
 @implementation MapButton
@@ -31,7 +31,7 @@
     button.layer.cornerRadius = mapButtonSize / 2;
     [button setImage:image forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
-    button.tintColor = mapButtonColor;
+    button.tintColor = mapButtonShadowColor;
     
     // shadow
     button.layer.shadowColor = button.tintColor.CGColor;
@@ -43,22 +43,16 @@
     return button;
 }
 
-- (void)shrink
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // self.layer.shadowRadius = 1;
-    CGRect frame = self.frame;
-    frame.size = CGSizeMake(self.frame.size.width - shrinkSize, self.frame.size.height - shrinkSize);
-    frame.origin = CGPointMake(self.frame.origin.x + shrinkSize/2, self.frame.origin.y + shrinkSize/2);
-    self.frame = frame;
+    self.backgroundColor = mapButtonShadowColor;
+    [super touchesBegan:touches withEvent:event];
 }
 
-- (void)expand
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // self.layer.shadowRadius = 3;
-    CGRect frame = self.frame;
-    frame.size = CGSizeMake(self.frame.size.width + shrinkSize, self.frame.size.height + shrinkSize);
-    frame.origin = CGPointMake(self.frame.origin.x - shrinkSize/2, self.frame.origin.y - shrinkSize/2);
-    self.frame = frame;
+    [super touchesEnded:touches withEvent:event];
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 @end
