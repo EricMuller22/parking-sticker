@@ -188,8 +188,6 @@
                          closeButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Close"] position:timingButton.frame.origin];
                          [closeButton addTarget:weakSelf action:@selector(dismissTimingView) forControlEvents:UIControlEventTouchUpInside];
                          [weakSelf.view addSubview:closeButton];
-                     }
-                     completion:^(BOOL finished) {
                          // blur the background view
                          weakSelf.blurImageView.image = [weakSelf.blurImageView.image stackBlur:9.0];
                      }];
