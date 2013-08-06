@@ -10,4 +10,6 @@
 
 @interface TimingViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
+// @property (nonatomic, getter = isVisible) BOOL visible;
+
 @end

@@ -35,6 +35,7 @@
     MapButton *locationButton;
     MapButton *timingButton;
     MapButton *closeButton;
+    UIStatusBarStyle statusBarStyle;
 }
 
 - (id)init
@@ -45,6 +46,7 @@
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map"
                                                         image:[UIImage imageNamed:@"Map"]
                                                           tag:0];
+        statusBarStyle = UIStatusBarStyleDefault;
     }
     return self;
 }
@@ -86,6 +88,11 @@
     {
         [self.locationTracker stopUpdatingLocation];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return statusBarStyle;
 }
 
 # pragma mark - Map
@@ -177,6 +184,7 @@
     // timing view controller
     [self addChildViewController:self.timingVC];
     self.timingVC.view.frame = timingButton.frame;
+    [self.timingVC willMoveToParentViewController:self];
     [self.view addSubview:self.timingVC.view];
     [self.timingVC didMoveToParentViewController:self];
     
@@ -190,6 +198,9 @@
                          [weakSelf.view addSubview:closeButton];
                          // blur the background view
                          weakSelf.blurImageView.image = [weakSelf.blurImageView.image stackBlur:9.0];
+                         // change status bar
+                         statusBarStyle = UIStatusBarStyleLightContent;
+                         [weakSelf setNeedsStatusBarAppearanceUpdate];
                      }];
 }
 
@@ -201,6 +212,9 @@
                          // remove blur and shrink timing view
                          weakSelf.timingVC.view.frame = timingButton.frame;
                          [weakSelf.blurImageView removeFromSuperview];
+                         // change status bar
+                         statusBarStyle = UIStatusBarStyleDefault;
+                         [weakSelf setNeedsStatusBarAppearanceUpdate];
                      }
                      completion:^(BOOL finished) {
                          // remove the close button and the timing view
