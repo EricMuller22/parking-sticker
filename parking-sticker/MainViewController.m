@@ -189,7 +189,7 @@
     [self.timingVC didMoveToParentViewController:self];
     
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.2
                      animations:^{
                          // add close button and expand timing view
                          weakSelf.timingVC.view.frame = weakSelf.view.frame;
@@ -207,7 +207,7 @@
 - (void)dismissTimingView
 {
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.2
                      animations:^{
                          // remove blur and shrink timing view
                          weakSelf.timingVC.view.frame = timingButton.frame;
