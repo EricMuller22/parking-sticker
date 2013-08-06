@@ -96,11 +96,11 @@
     CGRect mapViewFrame = self.view.frame;
     if (self.tabBarController)
     {
-        mapViewFrame.size.height -= self.tabBarController.tabBar.frame.size.height; // adjust for tab bar - to do - handle this with auto-layout
+        mapViewFrame.size.height -= self.tabBarController.tabBar.frame.size.height; // adjust for tab bar - TODO: handle this with auto-layout
     }
     self.mapView = [GMSMapView mapWithFrame:mapViewFrame camera:camera];
 
-    // self.mapView.myLocationEnabled = YES; // to do - figure out why "my location" image transparency is broken
+    // self.mapView.myLocationEnabled = YES; // TODO: figure out why "my location" image transparency is broken
     // self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.rotateGestures = NO;
