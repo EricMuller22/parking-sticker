@@ -16,7 +16,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];// [UIButton buttonWithType:UIButtonTypeCustom];
+    self = [super initWithFrame:frame]; // [UIButton buttonWithType:UIButtonTypeCustom];
     if (self)
     {
         self.frame = frame;

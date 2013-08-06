@@ -41,23 +41,26 @@
 {
     [super viewDidLoad];
     
+    // BG
+    self.view.backgroundColor = [UIColor colorFromHexString:@"#222222" alpha:0.80];
+    
     // Street cleaning picker
-    self.picker = [[UIPickerView alloc] init];
+    /* self.picker = [[UIPickerView alloc] init];
     self.picker.dataSource = self;
     self.picker.delegate = self;
-    [self.view addSubview:self.picker];
+    [self.view addSubview:self.picker]; */
     
     // Street cleaning activator
-    self.activator = [[UISwitch alloc] init];
-    CGRect switchFrame = self.activator.frame; // to do - autolayout
+    /* self.activator = [[UISwitch alloc] init];
+    CGRect switchFrame = self.activator.frame; // TODO: autolayout
     switchFrame.origin.y = self.picker.frame.size.height;
     switchFrame.origin.x = self.view.frame.size.width / 2 - switchFrame.size.width / 2;
     self.activator.frame = switchFrame;
     [self.activator addTarget:self
                        action:@selector(switchChanged:)
              forControlEvents:UIControlEventValueChanged];
-    self.activator.onTintColor = [UIColor colorFromHexString:@"#D35400"]; // to do - debug tint color inheritance
-    [self.view addSubview:self.activator];
+    self.activator.onTintColor = [UIColor colorFromHexString:@"#D35400"]; // TODO: debug tint color inheritance
+    [self.view addSubview:self.activator]; */
 }
 
 - (void)viewWillAppear:(BOOL)animated
