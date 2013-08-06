@@ -1,13 +1,16 @@
 PODS:
   - Google-Maps-iOS-SDK (1.4.0)
   - NSDate-Escort (1.1.0)
+  - StackBluriOS (0.0.1)
 
 DEPENDENCIES:
   - Google-Maps-iOS-SDK (~> 1.4.0)
   - NSDate-Escort (~> 1.1.0)
+  - StackBluriOS (~> 0.0.1)
 
 SPEC CHECKSUMS:
   Google-Maps-iOS-SDK: b45a7720ff24b907687a24841a4768a3b7b4ff17
   NSDate-Escort: cc3c56be597a2028b0049149f20823fe3ab0bf94
+  StackBluriOS: dd039bb5ff23a3dd370853202d38dec815970e5b
 
 COCOAPODS: 0.22.3

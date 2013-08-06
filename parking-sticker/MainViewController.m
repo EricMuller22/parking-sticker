@@ -9,7 +9,9 @@
 #import "MainViewController.h"
 #import "MapButton.h"
 #import "MapMarker.h"
+#import "TimingViewController.h"
 #import "UIColor+Hex.h"
+#import "UIImage+StackBlur.h"
 
 #define kCarLatitude @"car-latitude"
 #define kCarLongitude @"car-longitude"
@@ -22,6 +24,8 @@
 @property (nonatomic) CLLocationManager *locationTracker;
 @property (nonatomic) MapMarker *locationMarker;
 @property (nonatomic) MapMarker *carMarker;
+@property (nonatomic) TimingViewController *timingVC;
+@property (nonatomic) UIImageView *blurImageView;
 
 @end
 
@@ -30,6 +34,7 @@
     MapButton *carButton;
     MapButton *locationButton;
     MapButton *timingButton;
+    MapButton *closeButton;
 }
 
 - (id)init
@@ -147,8 +152,75 @@
     }
     else if (button == timingButton)
     {
-        NSLog(@"Display timing");
+        [self presentTimingView];
     }
+}
+
+# pragma mark - Timing View Modal
+
+- (TimingViewController *)timingVC
+{
+    if (!_timingVC)
+    {
+        _timingVC = [[TimingViewController alloc] init];
+    }
+    return _timingVC;
+}
+
+- (void)presentTimingView
+{
+    // replacement image (for blurred background)
+    self.blurImageView = [[UIImageView alloc] initWithImage:[self screenshot]];
+    self.blurImageView.frame = self.mapView.frame;
+    [self.view addSubview:self.blurImageView];
+    
+    // timing view controller
+    [self addChildViewController:self.timingVC];
+    self.timingVC.view.frame = timingButton.frame;
+    [self.view addSubview:self.timingVC.view];
+    [self.timingVC didMoveToParentViewController:self];
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         // add close button and expand timing view
+                         weakSelf.timingVC.view.frame = weakSelf.view.frame;
+                         closeButton = [MapButton buttonWithImage:[UIImage imageNamed:@"Close"] position:timingButton.frame.origin];
+                         [closeButton addTarget:weakSelf action:@selector(dismissTimingView) forControlEvents:UIControlEventTouchUpInside];
+                         [weakSelf.view addSubview:closeButton];
+                     }
+                     completion:^(BOOL finished) {
+                         // blur the background view
+                         weakSelf.blurImageView.image = [weakSelf.blurImageView.image stackBlur:9.0];
+                     }];
+}
+
+- (void)dismissTimingView
+{
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         // remove blur and shrink timing view
+                         weakSelf.timingVC.view.frame = timingButton.frame;
+                         [weakSelf.blurImageView removeFromSuperview];
+                     }
+                     completion:^(BOOL finished) {
+                         // remove the close button and the timing view
+                         [closeButton removeFromSuperview];
+                         [weakSelf.timingVC.view removeFromSuperview];
+                         [weakSelf.timingVC removeFromParentViewController];
+                     }];
+}
+
+# pragma mark - Screenshot
+
+- (UIImage *)screenshot
+{
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return screenshot;
 }
 
 # pragma mark - Map Markers
